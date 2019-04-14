@@ -21,36 +21,79 @@ gpio.trig(2, "down", function (a,b) start_serial() end)
 
 
 trans = {}
-trans['0'] = "zero"
-trans['1'] = "one"
-trans['2'] = "two"
-trans['3'] = "three"
-trans['4'] = "four"
-trans['5'] = "five"
-trans['6'] = "six"
-trans['7'] = "seven"
-trans['8'] = "eight"
-trans['9'] = "nine"
-trans['A'] = "ten"
-trans['B'] = "eleven"
-trans['C'] = "twelve"
-trans['D'] = "thirteen"
-trans['E'] = "fourteen"
-trans['F'] = "fifteen"
+-- trans['0'] = "zero"
+-- trans['1'] = "one"
+-- trans['2'] = "two"
+-- trans['3'] = "three"
+-- trans['4'] = "four"
+-- trans['5'] = "five"
+-- trans['6'] = "six"
+-- trans['7'] = "seven"
+-- trans['8'] = "eight"
+-- trans['9'] = "nine"
+-- trans['A'] = "ten"
+-- trans['B'] = "eleven"
+-- trans['C'] = "twelve"
+-- trans['D'] = "thirteen"
+-- trans['E'] = "fourteen"
+-- trans['F'] = "fifteen"
+
+--trans[1] = "one"
+--trans[2] = "two"
+--trans[3] = "three"
+--trans[4] = "four"
+--trans[5] = "five"
+--trans[6] = "six"
+--trans[7] = "seven"
+--trans[8] = "eight"
+--trans[9] = "nine"
+--trans[10] = "ten"
+--trans[11] = "eleven"
+--trans[12] = "twelve"
+--trans[13] = "thirteen"
+--trans[14] = "fourteen"
+--trans[15] = "fifteen"
+--trans[16] = "sixteen"
+
+trans = {
+  "one",
+  "two",
+  "three",
+  "four",
+  "five",
+  "six",
+  "seven",
+  "eight",
+  "nine",
+  "ten",
+  "eleven",
+  "twelve",
+  "thirteen",
+  "fourteen",
+  "fifteen",
+  "sixteen",
+}
+nx = table.getn(trans)
 
 function on_uart_data(data)
   -- blink_LED()
   -- uart.write(0, trans[data] .. "\n\r")
---  b=string.sub(data,1,1)
---  uart.write(0, b)
---  -- c=trans[string.char(b)]
---  c = trans[b]
---  if c == nil then 
---    c = "Err"
---  end
---  uart.write(0, " -> " .. c .. "\r")
-    uart.write(0, data .. "\r")
+  --  b=string.sub(data,1,1)
+  --  uart.write(0, b)
+  --  -- c=trans[string.char(b)]
+  --  c = trans[b]
+  --  if c == nil then 
+  --    c = "Err"
+  --  end
+  --  uart.write(0, " -> " .. c .. "\r")
+  --  uart.write(0, data)
+  flash_led_xfois(1,20,100)
 
+    n=string.byte(data)
+    if (n>0 and n<=nx) then
+      i=uart.write(0, trans[n])
+    end
+        
   -- serial_count = serial_count - 1
   -- if serial_count < 1 or c == 'q' then 
   --   stop_serial()
@@ -72,10 +115,11 @@ function start_serial()
   uart.alt(1)
   uart.setup(0, serial_baud, serial_databits, serial_parity, serial_stopbits)
 
-  baud, databits, parity, stopbits =uart.getconfig(0)
+  baud, databits, parity, stopbits = uart.getconfig(0)
 
   -- reply to arduino at each char
   uart.on("data", 1, on_uart_data, 0) 
+  flash_led_xfois(5,10,100)
 end
 
 function stop_serial()
@@ -87,7 +131,7 @@ function stop_serial()
   uart.alt(0)
   uart.setup(0, serial_save_baud, serial_save_databits, serial_save_parity, serial_save_stopbits)
   -- serial_count=10
-  print("Stop Serial")
+  flash_led_xfois(2,500,200)
 end
 
 ---- when 4 chars is received.
@@ -108,4 +152,3 @@ end
 --      uart.on("data") -- unregister callback function
 --    end
 --end, 0)
-

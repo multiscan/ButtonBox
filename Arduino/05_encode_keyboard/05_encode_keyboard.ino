@@ -1,4 +1,5 @@
 #include <Keypad.h>
+#include <Keyboard.h>
 #include <SoftwareSerial.h>
 
 // ================================================ Setup Keypad
@@ -47,6 +48,8 @@ void setup(){
   Serial.begin(9600);
   Serial.println("Ciao");
 
+  Keyboard.begin();
+
   // set data rate for the SoftwareSerial port
   node.begin(9600);
 }
@@ -72,6 +75,7 @@ void loop(){
       Serial.println();
       Serial.print("Message: ");
       Serial.println(nodeMessage);
+      Keyboard.println(nodeMessage);
       nodeMessage = "";
     } else {
       nodeMessage += c;
