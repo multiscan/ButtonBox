@@ -155,7 +155,7 @@ HTTP rest api. Programs will be stored to file (e.g. prog_01.json).
  [ss_arduino]: https://www.arduino.cc/en/Reference/softwareSerial
  [ss_nodemcu]: https://github.com/SlashDevin/NeoSWSerial
 
- [stdoutredirection]: https://nodemcu.readthedocs.io/en/master/modules/node/#nodeoutput)
+ [stdoutredirection]: https://nodemcu.readthedocs.io/en/master/modules/node/#nodeoutput
  [apalsodp]: http://forum.arduino.cc/index.php?topic=296083.0
 
 ##### Assetto Corsa and applications
